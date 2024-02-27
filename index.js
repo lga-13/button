@@ -13,7 +13,7 @@ class Button extends Block {
 
 
     render() {
-        return `<div>${this.props.text}</div>`
+        return `<button class="${this.props.class}" type="${this.props.type}">${this.props.text}</button>`;
     }
 }
 
@@ -25,14 +25,11 @@ function render(query, block) {
 }
 
 const button = new Button({
-    text: 'Click me',
+    class: 'login-form__button',
+    type: 'submit',
+    text: 'Авторизоваться'
 });
 
 // app — это class дива в корне DOM
 render(".app", button);
 // Через секунду контент изменится сам, достаточно обновить пропсы
-setTimeout(() => {
-    button.setProps({
-        text: 'Click me, please',
-    });
-}, 1000);

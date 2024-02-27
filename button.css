@@ -1,0 +1,12 @@
+.login-form__button {
+    display: block;
+    margin: auto;
+    width: 280px;
+    height: 40px;
+    background-color: #1D90D1;
+    color: white;
+    border: 1px solid #1D90D1;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 16px;
+}
