@@ -20,7 +20,7 @@ export default class Error404 extends Block {
         });
         const link = new Link({
             class: 'error404__back-chats',
-            type: 'text',
+            href: "#",
             text: 'вернуться к чатам'
         });
 

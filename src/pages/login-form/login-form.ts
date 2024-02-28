@@ -46,7 +46,7 @@ export default class loginForm extends Block {
         });
         const link = new Link({
             class: 'login-form__registration',
-            type: 'text',
+            href: "#",
             text: 'Еще не зарегистрированы?'
         });
 

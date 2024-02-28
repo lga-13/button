@@ -6,8 +6,6 @@ import Input from "../../components/input/input.ts";
 import Link from "../../components/links/link.ts";
 import Button from "../../components/button/button.ts";
 
-
-
 export default class registrationForm extends Block {
     constructor(props) {
         super('registration-form', props);
@@ -41,7 +39,7 @@ export default class registrationForm extends Block {
         });
         const link = new Link({
             class: 'registration-form__login',
-            type: 'text',
+            href: "#",
             text: 'Войти'
         });
 
