@@ -1,4 +1,4 @@
-import "./login-form.css"
+import "./registration-form.css";
 import Block from "../../components/base/block.ts";
 import FormTitle from "../../components/title/form-title.ts";
 import Label from "../../components/label/label.ts";
@@ -8,18 +8,18 @@ import Button from "../../components/button/button.ts";
 
 
 
-export default class loginForm extends Block {
+export default class registrationForm extends Block {
     constructor(props) {
-        super('login-form', props);
-        this.loginFields = this.props.loginFields.map(field => {
+        super('registration-form', props);
+        this.registrationFields = this.props.registrationFields.map(field => {
             return {
                 'label': new Label({
-                    'class': 'login-form__label',
+                    'class': 'registration-form__label',
                     'for': field.name,
                     'text': field.nameru
                 }),
                 'input': new Input({
-                    'class': 'login-form__input',
+                    'class': 'registration-form__input',
                     'type': 'text',
                     'id': field.name,
                     'name': field.nameru,
@@ -31,36 +31,30 @@ export default class loginForm extends Block {
 
     render() {
         const title = new FormTitle({
-            class: 'login-form__title',
-            text: 'Войти'
+            class: 'registration-form__title',
+            text: 'Регистрация'
         });
-        const forgotPasswordLink = new Link({
-            class: 'login-form__forgot-password',
-            type: 'text',
-            text: 'Забыли пароль?'
-        });
-        const authorizeButton  = new Button({
-            class: 'login-form__button',
+        const registrationButton  = new Button({
+            class: 'registration-form__button',
             type: 'submit',
-            text: 'Авторизоваться'
+            text: 'Зарегистрироваться'
         });
         const link = new Link({
-            class: 'login-form__registration',
+            class: 'registration-form__login',
             type: 'text',
-            text: 'Еще не зарегистрированы?'
+            text: 'Войти'
         });
 
-        const loginFieldsHtml = this.loginFields.map(field =>
+        const registrationFieldsHtml = this.registrationFields.map(field =>
             `${field.label.render()}
          ${field.input.render()}`
         ).join('');
 
         return `
-        <form class=login-form>
+        <form class=registration-form>
         ${title.render()}
-        ${loginFieldsHtml}
-        ${forgotPasswordLink.render()}
-        ${authorizeButton.render()}
+        ${registrationFieldsHtml}
+        ${registrationButton.render()}
         ${link.render()}
         </form>
     `;

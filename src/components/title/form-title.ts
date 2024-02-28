@@ -1,6 +1,6 @@
 import Block from "../base/block.ts"
 
-export default class Title extends Block {
+export default class FormTitle extends Block {
     constructor(props) {
         super("h2", props);
     }
