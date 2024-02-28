@@ -2,6 +2,7 @@ import render from "./utils/render.ts";
 import loginForm from "./pages/login-form/login-form.ts";
 import registrationForm from "./pages/registration-form/registration-form.ts";
 import Error404 from "./pages/error404/error404.ts";
+import Error500 from "./pages/error500/error500.ts";
 
 const login = new loginForm({
     loginFields: [
@@ -57,6 +58,10 @@ const error404 = new Error404( {})
 
 render("#app", error404)
 
+const error500  = new Error500( {})
+
+render("#app", error500)
+
 switch (window.location.hash) {
     case '#login':
         render("#app", login);
@@ -65,6 +70,9 @@ switch (window.location.hash) {
         render("#app", registration);
         break;
     case '#error404':
-        render("#app", registration);
+        render("#app", error404);
+        break;
+    case '#error500':
+        render("#app", error500);
         break;
 }
