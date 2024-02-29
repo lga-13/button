@@ -68,15 +68,11 @@
     margin-top: 3px;
 }
 
-hr {
+.chats-hr {
     margin-top: 48px;
     width: 310px;
     color: #757575;
     margin-bottom: 0;
-}
-
-hr:first-of-type{
-    margin: 0;
 }
 
 .chats__message {

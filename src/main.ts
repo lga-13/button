@@ -73,38 +73,6 @@ const error500  = new Error500( {})
 
 render("#app", error500)
 
-const settingspage = new settingsPage({
-    settingsPageFields: [
-        {
-            name: "login",
-            nameru: "Логин",
-            value: "",
-        },
-        {
-            name: "first-name",
-            nameru: "Имя",
-            value: "",
-        },
-        {
-            name: "second-name",
-            nameru: "Фамилия",
-            value: "",
-        },
-        {
-            name: "email",
-            nameru: "Почта",
-            value: "",
-        },
-        {
-            name: "phone",
-            nameru: "Телефон",
-            value: "",
-        }
-    ]
-});
-
-render("#app", settingspage)
-
 const chats = new Chats( {
     chatData: [
         {
@@ -155,14 +123,14 @@ const chats = new Chats( {
             count: "2"
         },
         {
-            img: chat8,
+            img: chat0,
             time: "Сб",
             sender: "Алена",
             content: "Друзья, у меня для вас особенный выпуск новостей!...",
             count: "2"
         },
         {
-            img: chat0,
+            img: chat8,
             time: "12 июня 2022",
             sender: "Павел",
             content: "Королевский питон (Python reg..."
@@ -171,6 +139,38 @@ const chats = new Chats( {
 });
 
 render("#app", chats)
+
+const settingspage = new settingsPage({
+    settingsPageFields: [
+        {
+            name: "login",
+            nameru: "Логин",
+            value: "",
+        },
+        {
+            name: "first-name",
+            nameru: "Имя",
+            value: "",
+        },
+        {
+            name: "second-name",
+            nameru: "Фамилия",
+            value: "",
+        },
+        {
+            name: "email",
+            nameru: "Почта",
+            value: "",
+        },
+        {
+            name: "phone",
+            nameru: "Телефон",
+            value: "",
+        }
+    ]
+});
+
+render("#app", settingspage)
 
 switch (window.location.hash) {
     case '#login':

@@ -10,13 +10,11 @@
     font-weight: 500;
     width: 1280px;
     height: 720px;
-    margin-top: 250px;
-    margin-bottom: 250px;
+    margin-top: 500px;
+    margin-bottom: 500px;
 }
 
 .settings-data {
-    width: 430px;
-    height: 720px;
     flex: 4;
 }
 
@@ -50,15 +48,15 @@
     outline: none;
 }
 
-hr {
+.settings-hr {
     margin-top: 0;
-    margin-bottom: 25px;
+    margin-bottom: 15px;
 }
 
 .settings__change-data {
     display: flex;
     justify-content: start;
-    margin-top: 59px;
+    margin-top: 30px;
     font-size: 14px;
     color: #1D90D1;
 }

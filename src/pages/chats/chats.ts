@@ -70,7 +70,7 @@ export default class Chats extends Block {
         });
 
         const chatsElementsHtml = this.chatsElements.map(element =>
-            `<hr>
+            `<div class="chats-hr"><hr></div>
              <div class='chats__message'>
                 ${element.img.render()}
                 <div class="chats__text">
@@ -106,3 +106,12 @@ export default class Chats extends Block {
         `;
     }
 }
+window.onload = function() {
+    // Выбираем первый элемент с классом 'chats-hr'
+    var elem = document.querySelector('.chats-hr');
+
+    // Если элемент найден, устанавливаем его margin в 0
+    if (elem) {
+        elem.style.marginTop = "0";
+    }
+};

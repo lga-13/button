@@ -61,7 +61,9 @@ export default class settingsPage extends Block {
         const settingsPageFieldsHtml = this.settingsPageFields.map(field =>
             `${field.label.render()}
              ${field.input.render()}
-             <hr>`
+             <div class="settings-hr">
+                 <hr>
+             </div>`
             ).join('');
 
         return `
