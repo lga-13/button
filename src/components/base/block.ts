@@ -1,3 +1,7 @@
+import {v4 as makeUUID} from 'uuid';
+
+const uuid = makeUUID();
+
 import EventBus from "./event-bus.ts"
 export default class Block {
     static EVENTS = {
@@ -6,7 +10,7 @@ export default class Block {
         FLOW_RENDER: "flow:render",
         FLOW_CDU: "flow:component-did-update"
     }
-
+    _id = null;
     _element = null;
     _meta = null;
 
@@ -22,9 +26,15 @@ export default class Block {
             tagName,
             props
         }
+
         this.eventBus = () => eventBus;
         this._registerEvents(eventBus);
-        this.props = this._makePropsProxy(props);
+        if (props.settings && props.settings.withInternalID) {
+            this._id = uuid;
+            this.props = this._makePropsProxy({ ...props, __id: this._id });
+        } else {
+            this.props = this._makePropsProxy(props);
+        }
         eventBus.emit(Block.EVENTS.INIT);
     }
 
@@ -37,7 +47,9 @@ export default class Block {
 
     // ----------------------------------------Эмитится Block.EVENTS.INIT ----------------------------------------------
     _createDocumentElement(tagName) {
-        return document.createElement(tagName);
+        const element = document.createElement(tagName);
+        element.setAttribute('data-id', this._id);
+        return element;
     }
 
     _createResources() {

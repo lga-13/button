@@ -25,7 +25,8 @@ const login = new loginForm({
             name: "password",
             nameru: "Пароль",
         }
-    ]
+    ],
+    settings: {withInternalID: true},
 });
 
 render("#app", login)

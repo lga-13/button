@@ -35,30 +35,17 @@ export default class loginForm extends Block {
         });
     }
 
-    handleSubmit(event) {
-        event.preventDefault(); // остановить обновление страницы
-        const elements = (<HTMLFormElement>event.target).elements;
-        console.log(elements);
-        const result = [...elements].reduce((acc, cur: IFormElement) => {
-            console.log(acc);
-            console.log(cur);
-            if (cur.name) {
-                acc[cur.name] = cur.value;
-            }
-            return acc;
-        }, {});
-
-        console.log(result);
-    }
 
     componentDidMount() {
         console.log("loginForm: Компонент был смонтирован.")
-        this.element.addEventListener("submit", this.handleSubmit);
+        return new Promise(resolve => setTimeout(resolve, 10000000));
     }
 
 
     render() {
         console.log("loginForm: Вызван рендер")
+        const { __id } = this.props;
+        console.log("id формы=", __id);
         const title = new FormTitle({
             class: 'login-form__title',
             text: 'Войти'
@@ -71,7 +58,13 @@ export default class loginForm extends Block {
         const authorizeButton  = new Button({
             class: 'login-form__button',
             type: 'submit',
-            text: 'Авторизоваться'
+            text: 'Авторизоваться',
+            events: {
+                click: event => {
+                    console.log("АААААААААААААААААААААААААААаа");
+                    console.log(event);
+                },
+            }
         });
         const link = new Link({
             class: 'login-form__registration',

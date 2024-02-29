@@ -16,5 +16,8 @@
     "stylelint-config-standard": "^36.0.0",
     "typescript": "^5.2.2",
     "vite": "^5.1.4"
+  },
+  "dependencies": {
+    "uuid": "^9.0.1"
   }
 }
