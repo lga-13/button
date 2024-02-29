@@ -8,6 +8,12 @@ import Button from "../../components/buttons/button.ts";
 
 
 
+interface IFormElement extends HTMLInputElement {
+    value: string;
+    name: string;
+}
+
+
 export default class loginForm extends Block {
     constructor(props) {
         super('login-form', props);
@@ -29,7 +35,30 @@ export default class loginForm extends Block {
         });
     }
 
+    handleSubmit(event) {
+        event.preventDefault(); // остановить обновление страницы
+        const elements = (<HTMLFormElement>event.target).elements;
+        console.log(elements);
+        const result = [...elements].reduce((acc, cur: IFormElement) => {
+            console.log(acc);
+            console.log(cur);
+            if (cur.name) {
+                acc[cur.name] = cur.value;
+            }
+            return acc;
+        }, {});
+
+        console.log(result);
+    }
+
+    componentDidMount() {
+        console.log("loginForm: Компонент был смонтирован.")
+        this.element.addEventListener("submit", this.handleSubmit);
+    }
+
+
     render() {
+        console.log("loginForm: Вызван рендер")
         const title = new FormTitle({
             class: 'login-form__title',
             text: 'Войти'
@@ -65,6 +94,8 @@ export default class loginForm extends Block {
         </form>
     `;
     }
+
+
 }
 
 

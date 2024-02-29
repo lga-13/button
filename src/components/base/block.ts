@@ -17,8 +17,6 @@ export default class Block {
      * @returns {void}
      */
     constructor(tagName = "div", props = {}) {
-        console.log("Инициализация с tagName", tagName)
-        console.log("Инициализация с props", props)
         const eventBus = new EventBus();
         this._meta = {
             tagName,
@@ -69,12 +67,11 @@ export default class Block {
     }
 
     _componentDidMount() {
-        console.log("Сработал тригер", Block.EVENTS.FLOW_CDM)
         this.componentDidMount();
         this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
     }
 
-    componentDidMount(oldProps) {}
+    componentDidMount() {}
     // -----------------------------------------------------------------------------------------------------------------
 
     get element() {
@@ -88,6 +85,7 @@ export default class Block {
     // ----------------------------------------Эмитится Block.EVENTS.FLOW_RENDER ---------------------------------------
     _render() {
         this._element.innerHTML = this.render();
+        this._addEvents();
     }
 
     render() {}
@@ -95,7 +93,6 @@ export default class Block {
 
 
     _makePropsProxy(props) {
-        console.log("Присваиваем прокси")
         const self = this;
         return new Proxy(props, {
             get(target, prop) {
@@ -122,6 +119,14 @@ export default class Block {
 
     hide() {
         this.element.style.display = "none";
+    }
+
+    _addEvents() {
+        const {events = {}} = this.props;
+
+        Object.keys(events).forEach(eventName => {
+            this._element.addEventListener(eventName, events[eventName]);
+        });
     }
 
 }
