@@ -8,7 +8,7 @@ import Time from "../../components/time/time.ts";
 import Count from "../../components/count/count.ts";
 import Input from "../../components/input/input.ts";
 import Link from "../../components/links/link.ts";
-import ButtonWithImage from "../../components/button/button_with_img.ts";
+import ButtonWithImage from "../../components/buttons/button_with_img.ts";
 import search from "../../public/static/img/search.svg";
 
 export default class Chats extends Block {

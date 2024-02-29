@@ -4,7 +4,7 @@ import Img from "../../components/img/img.ts";
 import Label from "../../components/label/label.ts";
 import Input from "../../components/input/input.ts";
 import Link from "../../components/links/link.ts";
-import ButtonWithImage from "../../components/button/button_with_img.ts";
+import ButtonWithImage from "../../components/buttons/button_with_img.ts";
 import avatar from "../../public/static/img/avatar.svg";
 import btnback from "../../public/static/img/btn-back.svg"
 

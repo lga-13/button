@@ -4,7 +4,7 @@ import FormTitle from "../../components/title/form-title.ts";
 import Label from "../../components/label/label.ts";
 import Input from "../../components/input/input.ts";
 import Link from "../../components/links/link.ts";
-import Button from "../../components/button/button.ts";
+import Button from "../../components/buttons/button.ts";
 
 export default class registrationForm extends Block {
     constructor(props) {
