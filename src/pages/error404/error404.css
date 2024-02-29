@@ -9,14 +9,15 @@
 }
 
 .error404 {
-    height: 90px;
+    width: 1280px;
+    height: 720px;
     margin: 247px auto;
 }
 
 .error404__title {
     text-align: center;
     font-family: "Manuale", sans-serif;
-    font-weight: 600px;
+    font-weight: 600;
     font-size: 64px;
 }
 

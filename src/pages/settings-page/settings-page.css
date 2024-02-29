@@ -8,6 +8,10 @@
     flex-direction: row;
     font-family: "Manuale", sans-serif;
     font-weight: 500;
+    width: 1280px;
+    height: 720px;
+    margin-top: 250px;
+    margin-bottom: 250px;
 }
 
 .settings-data {
@@ -20,7 +24,7 @@
     border-radius: 25%;
     margin-top: 23px;
     margin-bottom: 15px;
-    margin-left: 196px;
+    margin-left: 156px;
     width: 98px;
     height: 99px;
 }

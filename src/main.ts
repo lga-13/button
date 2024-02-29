@@ -4,6 +4,16 @@ import registrationForm from "./pages/registration-form/registration-form.ts";
 import Error404 from "./pages/error404/error404.ts";
 import Error500 from "./pages/error500/error500.ts";
 import settingsPage from "./pages/settings-page/settings-page.ts";
+import Chats from "./pages/chats/chats.ts";
+import chat1 from "./public/static/img/chat1.svg";
+import chat2 from "./public/static/img/chat2.svg";
+import chat3 from "./public/static/img/chat3.svg";
+import chat4 from "./public/static/img/chat4.svg";
+import chat5 from "./public/static/img/chat5.svg";
+import chat6 from "./public/static/img/chat6.svg";
+import chat7 from "./public/static/img/chat7.svg";
+import chat8 from "./public/static/img/chat8.svg";
+import chat0 from "./public/static/img/chat0.svg";
 
 const login = new loginForm({
     loginFields: [
@@ -95,6 +105,73 @@ const settingspage = new settingsPage({
 
 render("#app", settingspage)
 
+const chats = new Chats( {
+    chatData: [
+        {
+            img: chat1,
+            time: "11:05",
+            sender: "Мама",
+            yourMessage: "Вы:",
+            content: " Стикер",
+        },
+        {
+            img: chat2,
+            time: "12:25",
+            sender: "Папа",
+            content: "Изображение",
+            count: "2"
+        },
+        {
+            img: chat3,
+            time: "16:09",
+            sender: "Леха",
+            content: "Можно или сегодня или завтра",
+            count: "4"
+        },
+        {
+            img: chat4,
+            time: "21:49",
+            sender: "Людмила",
+            content: " Томат (Solánum lycopérsicum) — однолетнее или многолет..."
+        },
+        {
+            img: chat5,
+            time: "Ср",
+            sender: "Брат",
+            yourMessage: "Вы:",
+            content: " Круто!"
+        },
+        {
+            img: chat6,
+            time: "Ср",
+            sender: "Андрей",
+            content: " не ниже +5 и не выше +43"
+        },
+        {
+            img: chat7,
+            time: "Пт",
+            sender: "Вода ОФис",
+            content: "Акции на питьевую воду 19 литров для всех клиентов ...",
+            count: "2"
+        },
+        {
+            img: chat8,
+            time: "Сб",
+            sender: "Алена",
+            content: "Друзья, у меня для вас особенный выпуск новостей!...",
+            count: "2"
+        },
+        {
+            img: chat0,
+            time: "12 июня 2022",
+            sender: "Павел",
+            content: "Королевский питон (Python reg..."
+        },
+    ]
+});
+
+render("#app", chats)
+
 switch (window.location.hash) {
     case '#login':
         render("#app", login);
@@ -110,5 +187,8 @@ switch (window.location.hash) {
         break;
     case '#settingspage':
         render("#app", settingspage);
+        break;
+    case '#chats':
+        render("#app", chats);
         break;
 }
