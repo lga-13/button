@@ -1,8 +1,9 @@
 import {v4 as makeUUID} from 'uuid';
+import EventBus from "./event-bus.ts";
+import Handlebars from 'handlebars';
 
 const uuid = makeUUID();
 
-import EventBus from "./event-bus.ts"
 export default class Block {
     static EVENTS = {
         INIT: "init",
@@ -20,7 +21,12 @@ export default class Block {
      *
      * @returns {void}
      */
-    constructor(tagName = "div", props = {}) {
+
+    constructor(tagName = "div", propsAndChildren = {}) {
+        const { children, props } = this._getChildren(propsAndChildren);
+
+        this.children = children;
+
         const eventBus = new EventBus();
         this._meta = {
             tagName,
@@ -36,6 +42,40 @@ export default class Block {
             this.props = this._makePropsProxy(props);
         }
         eventBus.emit(Block.EVENTS.INIT);
+    }
+
+    _getChildren(propsAndChildren) {
+        const children = {};
+        const props = {};
+
+        Object.entries(propsAndChildren).forEach(([key, value]) => {
+            if (value instanceof Block) {
+                children[key] = value;
+            } else {
+                props[key] = value;
+            }
+        });
+
+        return { children, props };
+    }
+
+    compile(template, props) {
+        const propsAndStubs = { ...props };
+
+        Object.entries(this.children).forEach(([key, child]) => {
+            propsAndStubs[key] = `<div data-id="${child._id}"></div>`
+        });
+        // Создаём новый HTML элемент 'template'
+        const fragment = this._createDocumentElement('template');
+        // Компилируем шаблон с помощью Handlebars и устанавливаем его как innerHTML нашего фрагмента
+        fragment.innerHTML = Handlebars.compile(template)(propsAndStubs);
+        // Заменяем каждый шаблон нашего дочернего компонента на его реальное содержимое
+        Object.values(this.children).forEach(child => {
+            const stub = fragment.content.querySelector(`[data-id="${child._id}"]`);
+            stub.replaceWith(child.getContent());
+        });
+        // Возвращаем содержимое нашего шаблонного фрагмента
+        return fragment.content;
     }
 
     _registerEvents(eventBus) {
@@ -81,6 +121,10 @@ export default class Block {
     _componentDidMount() {
         this.componentDidMount();
         this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
+
+        Object.values(this.children).forEach(child => {
+            child.dispatchComponentDidMount();
+        });
     }
 
     componentDidMount() {}
@@ -96,7 +140,17 @@ export default class Block {
 
     // ----------------------------------------Эмитится Block.EVENTS.FLOW_RENDER ---------------------------------------
     _render() {
-        this._element.innerHTML = this.render();
+        const block = this.render(); // теперь метод render возвращает DocumentFragment
+        if (!(block instanceof Node)) {
+            console.error('Method render() must return a Node');
+            return;
+        }
+
+        this._removeEvents(); // удаляем предыдущие события
+        this._element.innerHTML = ''; // очищаем предыдущее содержимое
+
+        this._element.appendChild(block); // добавляем новое содержимое
+
         this._addEvents();
     }
 
@@ -139,6 +193,15 @@ export default class Block {
         Object.keys(events).forEach(eventName => {
             this._element.addEventListener(eventName, events[eventName]);
         });
+        this._currentEvents = events;
+    }
+
+    _removeEvents() {
+        if (this._currentEvents) {
+            Object.keys(this._currentEvents).forEach(eventName => {
+                this._element.removeEventListener(eventName, this._currentEvents[eventName]);
+            });
+        }
     }
 
 }
