@@ -1,4 +1,5 @@
-import Block from "../base/block.ts"
+import Block from "../base/block.ts";
+import Handlebars from "handlebars";
 
 export default class FormTitle extends Block {
     constructor(props) {
@@ -6,6 +7,6 @@ export default class FormTitle extends Block {
     }
 
     render() {
-        return `<h2 class="${this.props.class}">${this.props.text}</h2>`;
+        return `<h2 class=class="${this.props.class}">${this.props.text}</h2>`;
     }
 }

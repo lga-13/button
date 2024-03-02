@@ -23,7 +23,8 @@ export default class Block {
      */
 
     constructor(tagName = "div", propsAndChildren = {}) {
-        const { children, props } = this._getChildren(propsAndChildren);
+        console.log("propsAndChildren", propsAndChildren)
+        const {children, props} = this._getChildren(propsAndChildren);
 
         this.children = children;
 
@@ -49,33 +50,47 @@ export default class Block {
         const props = {};
 
         Object.entries(propsAndChildren).forEach(([key, value]) => {
-            if (value instanceof Block) {
-                children[key] = value;
+            if (value instanceof Array && value.every(element => element instanceof Block) || value instanceof Block )  {
+                    console.log("Попало в детей", value)
+                    children[key] = value;
             } else {
+                console.log("Попало в пропсы", value)
                 props[key] = value;
             }
         });
-
+        console.log("children", children)
         return { children, props };
     }
 
     compile(template, props) {
-        const propsAndStubs = { ...props };
+        console.log("Компиляция шаблона", template)
 
+        // Копируем пропсы
+        const propsAndStubs = { ...props };
+        console.log("children при compile", this.children)
         Object.entries(this.children).forEach(([key, child]) => {
+            console.log("child._id", child._id)
+            console.log(key)
             propsAndStubs[key] = `<div data-id="${child._id}"></div>`
         });
+
         // Создаём новый HTML элемент 'template'
         const fragment = this._createDocumentElement('template');
-        // Компилируем шаблон с помощью Handlebars и устанавливаем его как innerHTML нашего фрагмента
-        fragment.innerHTML = Handlebars.compile(template)(propsAndStubs);
+        console.log("fra", this.children)
+        // // Компилируем шаблон с помощью Handlebars и устанавливаем его как innerHTML нашего фрагмента
+        // console.log("Обкакались при компиляции блока")
+        //
+        return Handlebars.compile(template)(propsAndStubs);
         // Заменяем каждый шаблон нашего дочернего компонента на его реальное содержимое
-        Object.values(this.children).forEach(child => {
-            const stub = fragment.content.querySelector(`[data-id="${child._id}"]`);
-            stub.replaceWith(child.getContent());
-        });
+        // Object.values(this.children).forEach(child => {
+        //     console.log("child", child)
+        //     const stub = fragment.content.querySelector(`[data-id="${child._id}"]`);
+        //     console.log("stub", stub)
+        //     console.log("перед replaceWith", child.getContent())
+        //     stub.replaceWith(child.getContent());
+        // });
+        // return fragment.content
         // Возвращаем содержимое нашего шаблонного фрагмента
-        return fragment.content;
     }
 
     _registerEvents(eventBus) {
@@ -88,6 +103,7 @@ export default class Block {
     // ----------------------------------------Эмитится Block.EVENTS.INIT ----------------------------------------------
     _createDocumentElement(tagName) {
         const element = document.createElement(tagName);
+        console.log("this._id", this._id)
         element.setAttribute('data-id', this._id);
         return element;
     }
@@ -140,18 +156,11 @@ export default class Block {
 
     // ----------------------------------------Эмитится Block.EVENTS.FLOW_RENDER ---------------------------------------
     _render() {
-        const block = this.render(); // теперь метод render возвращает DocumentFragment
-        if (!(block instanceof Node)) {
-            console.error('Method render() must return a Node');
-            return;
-        }
+        const block = this.render();
 
-        this._removeEvents(); // удаляем предыдущие события
-        this._element.innerHTML = ''; // очищаем предыдущее содержимое
+        // Удалить старые события через removeEventListener
 
-        this._element.appendChild(block); // добавляем новое содержимое
-
-        this._addEvents();
+        this._element.innerHTML = block;
     }
 
     render() {}

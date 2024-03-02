@@ -1,6 +1,6 @@
 import Block from "../base/block.ts"
 
-export default class Input extends Block {
+export default class Button extends Block {
     constructor(props) {
         super("button", props);
     }

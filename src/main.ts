@@ -14,22 +14,80 @@ import chat6 from "./public/static/img/chat6.svg";
 import chat7 from "./public/static/img/chat7.svg";
 import chat8 from "./public/static/img/chat8.svg";
 import chat0 from "./public/static/img/chat0.svg";
+import FormTitle from "./components/title/form-title.ts";
+import Link from "./components/links/link.ts";
+import Button from "./components/buttons/button.ts";
+import Label from "./components/label/label.ts";
+import Input from "./components/input/input.ts";
 
-const login = new loginForm({
-    loginFields: [
-        {
-            name: "login",
-            nameru: "Логин",
-        },
-        {
-            name: "password",
-            nameru: "Пароль",
-        }
-    ],
-    settings: {withInternalID: true},
-});
+
+const login = new loginForm(
+    {
+        title: new FormTitle({
+                class: 'login-form__title',
+                text: 'Войти',
+                settings: {withInternalID: true},
+            }
+        ),
+        forgotPasswordLink: new Link(
+            {
+                class: 'login-form__forgot-password',
+                type: 'text',
+                text: 'Забыли пароль?',
+                settings: {withInternalID: true},
+            }
+        ),
+        authorizeButton: new Button({
+                class: 'login-form__button',
+                type: 'submit',
+                text: 'Авторизоваться',
+                events: {
+                    click: event => {
+                        console.log("Клик на кнопку инпута обнаружен");
+                        console.log(event);
+                    }
+                },
+                settings: {withInternalID: true},
+            }
+        ),
+        link: new Link({
+                class: 'login-form__registration',
+                href: "#",
+                text: 'Еще не зарегистрированы?',
+                settings: {withInternalID: true},
+        }),
+        loginInput: new Input( {
+                class: 'login-form__input',
+                type: 'text',
+                id: "login",
+                name: "Логин",
+                placeholder: '',
+                settings: {withInternalID: true}
+        }),
+        loginLabel: new Label({
+                class: 'login-form__label',
+                for: "login",
+                text: "Логин",
+                settings: {withInternalID: true}
+        }),
+        passwordInput: new Input( {
+            class: 'login-form__input',
+            type: 'text',
+            id: "password",
+            name: "Пароль",
+            placeholder: '',
+            settings: {withInternalID: true}
+        }),
+        passwordLabel: new Label({
+            class: 'login-form__label',
+            for: "password",
+            text: "Пароль",
+            settings: {withInternalID: true}
+        }),
+        settings: {withInternalID: true},});
 
 render("#app", login)
+
 
 const registration = new registrationForm({
     registrationFields: [
